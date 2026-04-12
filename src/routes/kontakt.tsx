@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { addSubmission } from "@/lib/contact-store";
 import { Phone, Mail, MapPin, Send, CheckCircle } from "lucide-react";
 
 export const Route = createFileRoute("/kontakt")({
