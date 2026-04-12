@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Shield, Sparkles, ArrowRight } from "lucide-react";
 import heroSecurity from "@/assets/hero-security.jpg";
 import heroCleaning from "@/assets/hero-cleaning.jpg";
-import logo from "@/assets/logo.jpeg";
+import logo from "@/assets/logo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
