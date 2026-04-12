@@ -100,6 +100,7 @@ function KontaktPage() {
                       <label className="text-sm text-muted-foreground uppercase tracking-widest mb-2 block">Name</label>
                       <input
                         type="text"
+                        name="name"
                         required
                         className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
                         placeholder="Ihr Name"
@@ -109,6 +110,7 @@ function KontaktPage() {
                       <label className="text-sm text-muted-foreground uppercase tracking-widest mb-2 block">Telefon</label>
                       <input
                         type="tel"
+                        name="phone"
                         className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
                         placeholder="Ihre Telefonnummer"
                       />
@@ -118,6 +120,7 @@ function KontaktPage() {
                     <label className="text-sm text-muted-foreground uppercase tracking-widest mb-2 block">E-Mail</label>
                     <input
                       type="email"
+                      name="email"
                       required
                       className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
                       placeholder="Ihre E-Mail-Adresse"
@@ -125,7 +128,7 @@ function KontaktPage() {
                   </div>
                   <div>
                     <label className="text-sm text-muted-foreground uppercase tracking-widest mb-2 block">Betreff</label>
-                    <select className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground focus:outline-none focus:ring-1 focus:ring-ring">
+                    <select name="subject" className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground focus:outline-none focus:ring-1 focus:ring-ring">
                       <option value="">Bitte wählen...</option>
                       <option value="security">Sicherheitsdienst</option>
                       <option value="reinigung">Gebäudereinigung</option>
@@ -136,6 +139,7 @@ function KontaktPage() {
                   <div>
                     <label className="text-sm text-muted-foreground uppercase tracking-widest mb-2 block">Nachricht</label>
                     <textarea
+                      name="message"
                       required
                       rows={5}
                       className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring resize-none"
