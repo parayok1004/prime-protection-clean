@@ -8,28 +8,28 @@ export interface ContactSubmission {
   date: string;
 }
 
-const STORAGE_KEY = "pps-contact-submissions";
-
-export function getSubmissions(): ContactSubmission[] {
-  try {
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
-  } catch {
-    return [];
-  }
-}
-
-export function addSubmission(submission: Omit<ContactSubmission, "id" | "date">) {
-  const submissions = getSubmissions();
-  submissions.unshift({
-    ...submission,
-    id: crypto.randomUUID(),
-    date: new Date().toISOString(),
+export async function getSubmissions(): Promise<ContactSubmission[]> {
+  const res = await fetch("/api/kontakt", {
+    headers: { "Cache-Control": "no-store" },
   });
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(submissions));
+  if (!res.ok) return [];
+  return res.json();
 }
 
-export function deleteSubmission(id: string) {
-  const submissions = getSubmissions().filter((s) => s.id !== id);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(submissions));
+export async function addSubmission(submission: Omit<ContactSubmission, "id" | "date">): Promise<boolean> {
+  const res = await fetch("/api/kontakt", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(submission),
+  });
+  return res.ok;
+}
+
+export async function deleteSubmission(id: string): Promise<boolean> {
+  const res = await fetch("/api/kontakt", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id }),
+  });
+  return res.ok;
 }

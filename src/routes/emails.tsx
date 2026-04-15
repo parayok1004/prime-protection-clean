@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Trash2, Mail, Phone, Calendar, Tag, Inbox } from "lucide-react";
+import { Trash2, Mail, Phone, Calendar, Tag, Inbox, RefreshCw } from "lucide-react";
 import { getSubmissions, deleteSubmission, type ContactSubmission } from "@/lib/contact-store";
 
 export const Route = createFileRoute("/emails")({
@@ -22,14 +22,22 @@ const subjectLabels: Record<string, string> = {
 
 function EmailsPage() {
   const [submissions, setSubmissions] = useState<ContactSubmission[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const loadSubmissions = async () => {
+    setLoading(true);
+    const data = await getSubmissions();
+    setSubmissions(data);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    setSubmissions(getSubmissions());
+    loadSubmissions();
   }, []);
 
-  const handleDelete = (id: string) => {
-    deleteSubmission(id);
-    setSubmissions(getSubmissions());
+  const handleDelete = async (id: string) => {
+    await deleteSubmission(id);
+    await loadSubmissions();
   };
 
   return (
@@ -40,13 +48,21 @@ function EmailsPage() {
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Kontaktanfragen</h1>
             <div className="divider-gold mx-auto mb-6" />
             <p className="text-muted-foreground">
-              {submissions.length === 0
-                ? "Noch keine Anfragen eingegangen."
-                : `${submissions.length} Anfrage${submissions.length !== 1 ? "n" : ""} vorhanden`}
+              {loading
+                ? "Lade Anfragen..."
+                : submissions.length === 0
+                  ? "Noch keine Anfragen eingegangen."
+                  : `${submissions.length} Anfrage${submissions.length !== 1 ? "n" : ""} vorhanden`}
             </p>
+            <button
+              onClick={loadSubmissions}
+              className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <RefreshCw size={14} /> Aktualisieren
+            </button>
           </div>
 
-          {submissions.length === 0 ? (
+          {!loading && submissions.length === 0 ? (
             <div className="text-center py-20">
               <Inbox className="mx-auto mb-4 text-muted-foreground" size={64} />
               <p className="text-muted-foreground text-lg">Keine Anfragen vorhanden</p>

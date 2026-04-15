@@ -17,19 +17,26 @@ export const Route = createFileRoute("/kontakt")({
 
 function KontaktPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (sending) return;
+    setSending(true);
+
     const form = e.currentTarget;
     const formData = new FormData(form);
-    addSubmission({
+
+    const ok = await addSubmission({
       name: formData.get("name") as string,
       phone: (formData.get("phone") as string) || "",
       email: formData.get("email") as string,
       subject: (formData.get("subject") as string) || "",
       message: formData.get("message") as string,
     });
-    setSubmitted(true);
+
+    setSending(false);
+    if (ok) setSubmitted(true);
   };
 
   return (
@@ -146,8 +153,8 @@ function KontaktPage() {
                       placeholder="Ihre Nachricht..."
                     />
                   </div>
-                  <button type="submit" className="btn-gold text-sm flex items-center gap-2">
-                    <Send size={16} /> Nachricht senden
+                  <button type="submit" disabled={sending} className="btn-gold text-sm flex items-center gap-2 disabled:opacity-50">
+                    <Send size={16} /> {sending ? "Wird gesendet..." : "Nachricht senden"}
                   </button>
                 </form>
               )}
