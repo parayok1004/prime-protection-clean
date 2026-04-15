@@ -17,19 +17,31 @@ export const Route = createFileRoute("/kontakt")({
 
 function KontaktPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (sending) return;
+    setSending(true);
+
     const form = e.currentTarget;
     const formData = new FormData(form);
-    addSubmission({
-      name: formData.get("name") as string,
-      phone: (formData.get("phone") as string) || "",
-      email: formData.get("email") as string,
-      subject: (formData.get("subject") as string) || "",
-      message: formData.get("message") as string,
-    });
-    setSubmitted(true);
+
+    try {
+      await addSubmission({
+        data: {
+          name: formData.get("name") as string,
+          phone: (formData.get("phone") as string) || "",
+          email: formData.get("email") as string,
+          subject: (formData.get("subject") as string) || "",
+          message: formData.get("message") as string,
+        },
+      });
+      setSubmitted(true);
+    } catch {
+      alert("Fehler beim Senden. Bitte versuchen Sie es erneut.");
+    }
+    setSending(false);
   };
 
   return (
@@ -45,32 +57,24 @@ function KontaktPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Contact Info */}
             <div>
               <h2 className="text-2xl font-bold text-foreground mb-6">Kontaktdaten</h2>
               <div className="divider-gold mb-8" />
-
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <Phone className="gold-text mt-1 shrink-0" size={20} />
                   <div>
                     <p className="text-sm text-muted-foreground uppercase tracking-widest mb-1">Telefon</p>
-                    <a href="tel:01639450681" className="text-foreground hover:text-gold transition-colors font-medium">
-                      0163 945 0681
-                    </a>
+                    <a href="tel:01639450681" className="text-foreground hover:text-gold transition-colors font-medium">0163 945 0681</a>
                   </div>
                 </div>
-
                 <div className="flex items-start gap-4">
                   <Mail className="gold-text mt-1 shrink-0" size={20} />
                   <div>
                     <p className="text-sm text-muted-foreground uppercase tracking-widest mb-1">E-Mail</p>
-                    <a href="mailto:Kontakt@prime-protection-service.de" className="text-foreground hover:text-gold transition-colors font-medium">
-                      Kontakt@prime-protection-service.de
-                    </a>
+                    <a href="mailto:Kontakt@prime-protection-service.de" className="text-foreground hover:text-gold transition-colors font-medium">Kontakt@prime-protection-service.de</a>
                   </div>
                 </div>
-
                 <div className="flex items-start gap-4">
                   <MapPin className="gold-text mt-1 shrink-0" size={20} />
                   <div>
@@ -82,11 +86,9 @@ function KontaktPage() {
               </div>
             </div>
 
-            {/* Contact Form */}
             <div>
               <h2 className="text-2xl font-bold text-foreground mb-6">Nachricht senden</h2>
               <div className="divider-gold mb-8" />
-
               {submitted ? (
                 <div className="bg-card border border-border rounded-lg p-8 text-center">
                   <CheckCircle className="gold-text mx-auto mb-4" size={48} />
@@ -98,33 +100,16 @@ function KontaktPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <label className="text-sm text-muted-foreground uppercase tracking-widest mb-2 block">Name</label>
-                      <input
-                        type="text"
-                        name="name"
-                        required
-                        className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-                        placeholder="Ihr Name"
-                      />
+                      <input type="text" name="name" required className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring" placeholder="Ihr Name" />
                     </div>
                     <div>
                       <label className="text-sm text-muted-foreground uppercase tracking-widest mb-2 block">Telefon</label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-                        placeholder="Ihre Telefonnummer"
-                      />
+                      <input type="tel" name="phone" className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring" placeholder="Ihre Telefonnummer" />
                     </div>
                   </div>
                   <div>
                     <label className="text-sm text-muted-foreground uppercase tracking-widest mb-2 block">E-Mail</label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-                      placeholder="Ihre E-Mail-Adresse"
-                    />
+                    <input type="email" name="email" required className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring" placeholder="Ihre E-Mail-Adresse" />
                   </div>
                   <div>
                     <label className="text-sm text-muted-foreground uppercase tracking-widest mb-2 block">Betreff</label>
@@ -138,16 +123,10 @@ function KontaktPage() {
                   </div>
                   <div>
                     <label className="text-sm text-muted-foreground uppercase tracking-widest mb-2 block">Nachricht</label>
-                    <textarea
-                      name="message"
-                      required
-                      rows={5}
-                      className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring resize-none"
-                      placeholder="Ihre Nachricht..."
-                    />
+                    <textarea name="message" required rows={5} className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring resize-none" placeholder="Ihre Nachricht..." />
                   </div>
-                  <button type="submit" className="btn-gold text-sm flex items-center gap-2">
-                    <Send size={16} /> Nachricht senden
+                  <button type="submit" disabled={sending} className="btn-gold text-sm flex items-center gap-2 disabled:opacity-50">
+                    <Send size={16} /> {sending ? "Wird gesendet..." : "Nachricht senden"}
                   </button>
                 </form>
               )}

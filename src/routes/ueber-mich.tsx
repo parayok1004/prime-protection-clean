@@ -6,7 +6,7 @@ export const Route = createFileRoute("/ueber-mich")({
   head: () => ({
     meta: [
       { title: "Über mich — Omar Khaled El Abadi | Prime Protection Service" },
-      { name: "description", content: "Erfahren Sie mehr über den Gründer von Prime Protection Service. Ehemaliger Bundeswehr-Soldat mit Erfahrung im Objektschutz." },
+      { name: "description", content: "Erfahren Sie mehr über den Gründer von Prime Protection Service. Professionelle Sicherheits- und Gebäudedienstleistungen in Berlin." },
       { property: "og:title", content: "Über den Gründer — Prime Protection Service" },
       { property: "og:description", content: "Omar Khaled El Abadi — Gründer und Inhaber von Prime Protection Service." },
     ],
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/ueber-mich")({
 
 function UeberMichPage() {
   const values = [
-    { icon: Shield, title: "Sicherheit", desc: "Professioneller Schutz mit militärischer Präzision" },
+    { icon: Shield, title: "Sicherheit", desc: "Professioneller Schutz mit höchstem Anspruch an Qualität" },
     { icon: Award, title: "Qualität", desc: "Höchste Standards bei jedem Auftrag" },
     { icon: Clock, title: "Zuverlässigkeit", desc: "Pünktlich, diskret und verlässlich" },
     { icon: Heart, title: "Vertrauen", desc: "Respektvoller Umgang mit Kunden und Eigentum" },
@@ -38,7 +38,7 @@ function UeberMichPage() {
               Mein Name ist Omar Khaled El Abadi und ich bin der Gründer und Inhaber von Prime Protection Service. Mit meiner Firma biete ich professionelle Sicherheits- und Gebäudedienstleistungen an, auf die sich Kunden jederzeit verlassen können.
             </p>
             <p>
-              Meine berufliche Grundlage basiert auf mehreren Jahren Erfahrung bei der Bundeswehr. Während meiner Dienstzeit war ich unter anderem im Bereich Objektschutz eingesetzt und habe auch am Regierungsflughafen gearbeitet. Dort habe ich gelernt, wie wichtig Disziplin, Verantwortung und absolute Zuverlässigkeit im Sicherheitsbereich sind.
+              Meine berufliche Grundlage basiert auf langjähriger Erfahrung im Sicherheitsbereich und im Objektschutz. Dabei habe ich gelernt, wie wichtig Disziplin, Verantwortung und absolute Zuverlässigkeit in diesem Berufsfeld sind.
             </p>
             <p>
               Diese Werte prägen heute meine Arbeit und die Philosophie von Prime Protection Service. Für mich stehen Vertrauen, Professionalität und ein hohes Maß an Einsatzbereitschaft an erster Stelle. Ich lege großen Wert darauf, jeden Auftrag sorgfältig, diskret und zuverlässig auszuführen.

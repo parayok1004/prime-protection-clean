@@ -24,7 +24,7 @@ function SecurityPage() {
       <HeroSection
         image={heroSecurity}
         title="Professioneller Sicherheitsdienst"
-        subtitle="Vertrauen Sie auf erfahrene Sicherheitskräfte mit militärischem Hintergrund. Wir schützen Ihre Veranstaltungen, Objekte und Personen — diskret und kompetent."
+        subtitle="Vertrauen Sie auf erfahrene Sicherheitskräfte mit höchstem Qualitätsanspruch. Wir schützen Ihre Veranstaltungen, Objekte und Personen — diskret und kompetent."
         ctaText="Angebot anfordern"
         ctaTo="/kontakt"
       />
@@ -59,7 +59,7 @@ function SecurityPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             {[
               { value: "24/7", label: "Einsatzbereit" },
-              { value: "Ex-Bundeswehr", label: "Erfahrene Kräfte" },
+              { value: "Erfahren", label: "Sicherheitskräfte" },
               { value: "100%", label: "Zuverlässigkeit" },
             ].map((stat) => (
               <div key={stat.label}>

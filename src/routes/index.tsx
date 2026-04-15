@@ -8,10 +8,10 @@ import logo from "@/assets/logo.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Prime Protection Service — Sicherheit & Gebäudereinigung Berlin" },
-      { name: "description", content: "Professionelle Sicherheits- und Gebäudedienstleistungen in Berlin. Event- & Objektschutz sowie Prime Clean Berlin Reinigungsservice." },
-      { property: "og:title", content: "Prime Protection Service — Sicherheit & Gebäudereinigung Berlin" },
-      { property: "og:description", content: "Professionelle Sicherheits- und Gebäudedienstleistungen in Berlin." },
+      { title: "Prime Protection Service | Sicherheitsdienst & Gebäudereinigung Berlin" },
+      { name: "description", content: "Professioneller Sicherheitsdienst und Gebäudedienstleistungen in Berlin. Objektschutz, Eventschutz und erstklassige Reinigung." },
+      { property: "og:title", content: "Prime Protection Service | Sicherheitsdienst & Gebäudereinigung Berlin" },
+      { property: "og:description", content: "Professioneller Sicherheitsdienst und Gebäudedienstleistungen in Berlin." },
     ],
   }),
   component: HomePage,
@@ -53,7 +53,7 @@ function HomePage() {
       <section className="py-24 px-6">
         <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8">
           <Link to="/security" className="group relative overflow-hidden rounded-lg border border-border card-hover">
-            <img src={heroSecurity} alt="Security" loading="lazy" width={1920} height={1080} className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110" />
+            <img src={heroSecurity} alt="Sicherheitsdienst Berlin" loading="lazy" width={1920} height={1080} className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110" />
             <div className="absolute inset-0 bg-background/60 group-hover:bg-background/50 transition-colors" />
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
               <Shield className="gold-text mb-4" size={48} />
@@ -66,7 +66,7 @@ function HomePage() {
           </Link>
 
           <Link to="/reinigung" className="group relative overflow-hidden rounded-lg border border-border card-hover">
-            <img src={heroCleaning} alt="Reinigung" loading="lazy" width={1920} height={1080} className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110" />
+            <img src={heroCleaning} alt="Gebäudereinigung Berlin" loading="lazy" width={1920} height={1080} className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110" />
             <div className="absolute inset-0 bg-background/60 group-hover:bg-background/50 transition-colors" />
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
               <Sparkles className="gold-text mb-4" size={48} />
@@ -86,8 +86,13 @@ function HomePage() {
           <h2 className="text-3xl font-bold text-foreground mb-4">Warum Prime Protection Service?</h2>
           <div className="divider-gold mx-auto mb-8" />
           <p className="text-muted-foreground leading-relaxed text-lg">
-            Gegründet von einem ehemaligen Bundeswehr-Soldaten mit Erfahrung im Objektschutz und am Regierungsflughafen. 
-            Disziplin, Verantwortung und absolute Zuverlässigkeit sind keine Versprechen — sie sind unsere Grundlage.
+            Prime Protection Service steht für zuverlässige und professionelle Sicherheitslösungen in Berlin. 
+            Mit Erfahrung im Objektschutz und in anspruchsvollen Einsatzbereichen bieten wir unseren Kunden 
+            ein hohes Maß an Sicherheit, Diskretion und Qualität.
+          </p>
+          <p className="text-muted-foreground leading-relaxed text-lg mt-4">
+            Unser Fokus liegt auf verantwortungsbewusstem Handeln, klarer Kommunikation und einem 
+            vertrauensvollen Umgang mit jedem Auftrag.
           </p>
           <div className="mt-10">
             <Link to="/ueber-mich" className="btn-outline-gold text-sm">Über den Gründer</Link>
