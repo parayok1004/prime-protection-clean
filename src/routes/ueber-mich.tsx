@@ -35,19 +35,30 @@ function UeberMichPage() {
 
           <div className="space-y-6 text-muted-foreground leading-relaxed text-lg">
             <p>
-              Mein Name ist Omar Khaled El Abadi und ich bin der Gründer und Inhaber von Prime Protection Service. Mit meiner Firma biete ich professionelle Sicherheits- und Gebäudedienstleistungen an, auf die sich Kunden jederzeit verlassen können.
+              Mein Name ist <strong>Omar Khaled El Abadi</strong> und ich bin der Gründer und Inhaber von Prime Protection Service. 
+              Mit meinem Unternehmen biete ich professionelle Sicherheits- und Gebäudedienstleistungen in Berlin an – 
+              basierend auf langjähriger Erfahrung, absoluter Zuverlässigkeit und höchster Professionalität.
             </p>
             <p>
-              Meine berufliche Grundlage basiert auf langjähriger Erfahrung im Sicherheitsbereich und im Objektschutz. Dabei habe ich gelernt, wie wichtig Disziplin, Verantwortung und absolute Zuverlässigkeit in diesem Berufsfeld sind.
+              Meine berufliche Laufbahn begann bei der <strong>Bundeswehr</strong>, wo ich den Wert von Disziplin, 
+              Verantwortung und präzisem Arbeiten kennenlernte. Nach meiner Zeit beim Militär habe ich diese 
+              Prinzipien in den zivilen Sicherheitsbereich übertragen und mich auf anspruchsvolle Einsatzbereiche 
+              spezialisiert – darunter der <strong>Schutz hochsensibler Objekte wie dem Regierungsflughafen</strong>.
             </p>
             <p>
-              Diese Werte prägen heute meine Arbeit und die Philosophie von Prime Protection Service. Für mich stehen Vertrauen, Professionalität und ein hohes Maß an Einsatzbereitschaft an erster Stelle. Ich lege großen Wert darauf, jeden Auftrag sorgfältig, diskret und zuverlässig auszuführen.
+              Diese Erfahrungen haben mich geprägt und bilden das Fundament von Prime Protection Service. 
+              Für mich stehen <strong>Vertrauen, Diskretion und ein hohes Maß an Einsatzbereitschaft</strong> an erster Stelle. 
+              Ich lege großen Wert darauf, jeden Auftrag mit der gleichen Sorgfalt und Zuverlässigkeit auszuführen, 
+              die ich in den anspruchsvollsten Sicherheitsbereichen gelernt habe.
             </p>
             <p>
-              Ob Sicherheitsdienst oder Gebäudereinigung – mein Ziel ist es, meinen Kunden einen Service zu bieten, auf den sie sich jederzeit verlassen können. Qualität, Pünktlichkeit und ein respektvoller Umgang mit Kunden und deren Eigentum sind für mich selbstverständlich.
+              Ob Sicherheitsdienst oder Gebäudereinigung – mein Ziel ist es, meinen Kunden einen Service zu bieten, 
+              auf den sie sich jederzeit verlassen können. <strong>Qualität, Pünktlichkeit und ein respektvoller Umgang</strong> 
+              mit Kunden und deren Eigentum sind für mich selbstverständlich.
             </p>
             <p className="gold-text font-semibold">
-              Mit Prime Protection Service stehe ich persönlich für Sicherheit, Sauberkeit und Verantwortung.
+              Mit Prime Protection Service stehe ich persönlich für Sicherheit, Sauberkeit und Verantwortung – 
+              getragen von militärischer Präzision und ziviler Professionalität.
             </p>
           </div>
         </div>
