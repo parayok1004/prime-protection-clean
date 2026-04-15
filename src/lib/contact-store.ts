@@ -8,28 +8,4 @@ export interface ContactSubmission {
   date: string;
 }
 
-export async function getSubmissions(): Promise<ContactSubmission[]> {
-  const res = await fetch("/api/kontakt", {
-    headers: { "Cache-Control": "no-store" },
-  });
-  if (!res.ok) return [];
-  return res.json();
-}
-
-export async function addSubmission(submission: Omit<ContactSubmission, "id" | "date">): Promise<boolean> {
-  const res = await fetch("/api/kontakt", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(submission),
-  });
-  return res.ok;
-}
-
-export async function deleteSubmission(id: string): Promise<boolean> {
-  const res = await fetch("/api/kontakt", {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id }),
-  });
-  return res.ok;
-}
+export { getContactSubmissions as getSubmissions, addContactSubmission as addSubmission, deleteContactSubmission as deleteSubmission } from "./contact.functions";

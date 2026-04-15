@@ -15,7 +15,6 @@ import { Route as ReinigungRouteImport } from './routes/reinigung'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as EmailsRouteImport } from './routes/emails'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiKontaktRouteImport } from './routes/api/kontakt'
 
 const UeberMichRoute = UeberMichRouteImport.update({
   id: '/ueber-mich',
@@ -47,11 +46,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiKontaktRoute = ApiKontaktRouteImport.update({
-  id: '/api/kontakt',
-  path: '/api/kontakt',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -60,7 +54,6 @@ export interface FileRoutesByFullPath {
   '/reinigung': typeof ReinigungRoute
   '/security': typeof SecurityRoute
   '/ueber-mich': typeof UeberMichRoute
-  '/api/kontakt': typeof ApiKontaktRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,7 +62,6 @@ export interface FileRoutesByTo {
   '/reinigung': typeof ReinigungRoute
   '/security': typeof SecurityRoute
   '/ueber-mich': typeof UeberMichRoute
-  '/api/kontakt': typeof ApiKontaktRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,7 +71,6 @@ export interface FileRoutesById {
   '/reinigung': typeof ReinigungRoute
   '/security': typeof SecurityRoute
   '/ueber-mich': typeof UeberMichRoute
-  '/api/kontakt': typeof ApiKontaktRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -90,16 +81,8 @@ export interface FileRouteTypes {
     | '/reinigung'
     | '/security'
     | '/ueber-mich'
-    | '/api/kontakt'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/emails'
-    | '/kontakt'
-    | '/reinigung'
-    | '/security'
-    | '/ueber-mich'
-    | '/api/kontakt'
+  to: '/' | '/emails' | '/kontakt' | '/reinigung' | '/security' | '/ueber-mich'
   id:
     | '__root__'
     | '/'
@@ -108,7 +91,6 @@ export interface FileRouteTypes {
     | '/reinigung'
     | '/security'
     | '/ueber-mich'
-    | '/api/kontakt'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,7 +100,6 @@ export interface RootRouteChildren {
   ReinigungRoute: typeof ReinigungRoute
   SecurityRoute: typeof SecurityRoute
   UeberMichRoute: typeof UeberMichRoute
-  ApiKontaktRoute: typeof ApiKontaktRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -165,13 +146,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/kontakt': {
-      id: '/api/kontakt'
-      path: '/api/kontakt'
-      fullPath: '/api/kontakt'
-      preLoaderRoute: typeof ApiKontaktRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -182,7 +156,6 @@ const rootRouteChildren: RootRouteChildren = {
   ReinigungRoute: ReinigungRoute,
   SecurityRoute: SecurityRoute,
   UeberMichRoute: UeberMichRoute,
-  ApiKontaktRoute: ApiKontaktRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

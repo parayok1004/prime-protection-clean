@@ -36,7 +36,7 @@ function EmailsPage() {
   }, []);
 
   const handleDelete = async (id: string) => {
-    await deleteSubmission(id);
+    await deleteSubmission({ data: { id } });
     await loadSubmissions();
   };
 
@@ -73,7 +73,7 @@ function EmailsPage() {
                 <div key={s.id} className="bg-card border border-border rounded-lg p-6 relative group">
                   <button
                     onClick={() => handleDelete(s.id)}
-                    className="absolute top-4 right-4 text-muted-foreground hover:text-red-500 transition-colors"
+                    className="absolute top-4 right-4 text-muted-foreground hover:text-destructive transition-colors"
                     title="Löschen"
                   >
                     <Trash2 size={18} />
