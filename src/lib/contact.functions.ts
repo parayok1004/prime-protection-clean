@@ -34,6 +34,7 @@ interface ContactRow {
 
 export const getContactSubmissions = createServerFn({ method: "GET" }).handler(
   async () => {
+    setResponseHeaders(new Headers({ "Cache-Control": "no-store" }));
     console.log("[getContactSubmissions] Fetching contacts...");
     try {
       const db = await getDB();
