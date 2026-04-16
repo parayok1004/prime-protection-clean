@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-
+import { setResponseHeaders } from "@tanstack/react-start/server";
 /**
  * Access the Cloudflare D1 binding.
  * `cloudflare:workers` is a built-in Workers module — only available
@@ -34,6 +34,7 @@ interface ContactRow {
 
 export const getContactSubmissions = createServerFn({ method: "GET" }).handler(
   async () => {
+    setResponseHeaders(new Headers({ "Cache-Control": "no-store" }));
     console.log("[getContactSubmissions] Fetching contacts...");
     try {
       const db = await getDB();
