@@ -86,7 +86,7 @@ function EmailsPage() {
             </div>
           ) : (
             <div className="space-y-4">
-              {submissions.map((s) => (
+              {submissions.map((s: ContactSubmission) => (
                 <div key={s.id} className="bg-card border border-border rounded-lg p-6 relative group">
                   <button
                     onClick={() => handleDelete(s.id)}
