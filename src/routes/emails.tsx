@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
-import { Trash2, Mail, Phone, Calendar, Tag, Inbox, RefreshCw } from "lucide-react";
-import { getSubmissions, deleteSubmission, type ContactSubmission } from "@/lib/contact-store";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { Trash2, Mail, Phone, Calendar, Tag, Inbox, RefreshCw, AlertTriangle } from "lucide-react";
+import { getContactSubmissions, deleteContactSubmission } from "@/lib/contact.functions";
+import type { ContactSubmission } from "@/lib/contact-store";
 
 export const Route = createFileRoute("/emails")({
   head: () => ({
@@ -10,7 +10,24 @@ export const Route = createFileRoute("/emails")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
+  loader: async () => {
+    try {
+      const data = await getContactSubmissions();
+      return { submissions: data as ContactSubmission[], error: null };
+    } catch (err: any) {
+      console.error("[emails loader] Error:", err?.message);
+      return { submissions: [], error: err?.message || "Fehler beim Laden" };
+    }
+  },
+  staleTime: 0,
   component: EmailsPage,
+  errorComponent: ({ error }) => (
+    <div className="pt-24 text-center py-20">
+      <AlertTriangle className="mx-auto mb-4 text-destructive" size={64} />
+      <h1 className="text-2xl font-bold text-foreground mb-2">Fehler</h1>
+      <p className="text-muted-foreground">{error?.message || "Unbekannter Fehler"}</p>
+    </div>
+  ),
 });
 
 const subjectLabels: Record<string, string> = {
@@ -21,23 +38,21 @@ const subjectLabels: Record<string, string> = {
 };
 
 function EmailsPage() {
-  const [submissions, setSubmissions] = useState<ContactSubmission[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const loadSubmissions = async () => {
-    setLoading(true);
-    const data = await getSubmissions();
-    setSubmissions(data);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    loadSubmissions();
-  }, []);
+  const { submissions, error } = Route.useLoaderData();
+  const router = useRouter();
 
   const handleDelete = async (id: string) => {
-    await deleteSubmission({ data: { id } });
-    await loadSubmissions();
+    try {
+      await deleteContactSubmission({ data: { id } });
+      router.invalidate();
+    } catch (err: any) {
+      console.error("Delete failed:", err?.message);
+      alert("Löschen fehlgeschlagen: " + (err?.message || "Unbekannter Fehler"));
+    }
+  };
+
+  const handleRefresh = () => {
+    router.invalidate();
   };
 
   return (
@@ -47,22 +62,24 @@ function EmailsPage() {
           <div className="text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Kontaktanfragen</h1>
             <div className="divider-gold mx-auto mb-6" />
-            <p className="text-muted-foreground">
-              {loading
-                ? "Lade Anfragen..."
-                : submissions.length === 0
+            {error ? (
+              <p className="text-destructive">Fehler: {error}</p>
+            ) : (
+              <p className="text-muted-foreground">
+                {submissions.length === 0
                   ? "Noch keine Anfragen eingegangen."
                   : `${submissions.length} Anfrage${submissions.length !== 1 ? "n" : ""} vorhanden`}
-            </p>
+              </p>
+            )}
             <button
-              onClick={loadSubmissions}
+              onClick={handleRefresh}
               className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <RefreshCw size={14} /> Aktualisieren
             </button>
           </div>
 
-          {!loading && submissions.length === 0 ? (
+          {submissions.length === 0 && !error ? (
             <div className="text-center py-20">
               <Inbox className="mx-auto mb-4 text-muted-foreground" size={64} />
               <p className="text-muted-foreground text-lg">Keine Anfragen vorhanden</p>
