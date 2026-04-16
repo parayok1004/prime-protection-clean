@@ -1,4 +1,19 @@
 import { createServerFn } from "@tanstack/react-start";
+import { setResponseHeaders } from "@tanstack/react-start/server";
+
+/**
+ * Helper to obtain the Cloudflare D1 binding.
+ * `cloudflare:workers` is a built-in Workers module that exposes env bindings
+ * without needing them passed through the fetch handler.
+ */
+async function getDB(): Promise<any> {
+  // Dynamic import so Vite doesn't try to statically resolve the built-in module
+  const { env } = (await import("cloudflare:workers" as any)) as { env: { DB: any } };
+  if (!env?.DB) {
+    throw new Error("D1 binding 'DB' not found. Check wrangler.jsonc d1_databases config.");
+  }
+  return env.DB;
+}
 
 interface ContactRow {
   id: string;
@@ -10,13 +25,16 @@ interface ContactRow {
   date: string;
 }
 
-// Server-side in-memory store. Persists as long as the Worker instance is alive.
-// For true persistence on Cloudflare: replace with D1 database binding.
-const submissions: ContactRow[] = [];
-
 export const getContactSubmissions = createServerFn({ method: "GET" })
   .handler(async () => {
-    return submissions;
+    setResponseHeaders(new Headers({ "Cache-Control": "no-store" }));
+
+    const db = await getDB();
+    const { results } = await db
+      .prepare("SELECT id, name, phone, email, subject, message, date FROM contacts ORDER BY date DESC")
+      .all();
+
+    return (results ?? []) as ContactRow[];
   });
 
 export const addContactSubmission = createServerFn({ method: "POST" })
@@ -33,13 +51,16 @@ export const addContactSubmission = createServerFn({ method: "POST" })
     };
   })
   .handler(async ({ data }) => {
-    const entry: ContactRow = {
-      id: crypto.randomUUID(),
-      ...data,
-      date: new Date().toISOString(),
-    };
-    submissions.unshift(entry);
-    return { success: true, id: entry.id };
+    const db = await getDB();
+    const id = crypto.randomUUID();
+    const date = new Date().toISOString();
+
+    await db
+      .prepare("INSERT INTO contacts (id, name, phone, email, subject, message, date) VALUES (?, ?, ?, ?, ?, ?, ?)")
+      .bind(id, data.name, data.phone, data.email, data.subject, data.message, date)
+      .run();
+
+    return { success: true, id };
   });
 
 export const deleteContactSubmission = createServerFn({ method: "POST" })
@@ -48,7 +69,7 @@ export const deleteContactSubmission = createServerFn({ method: "POST" })
     return data;
   })
   .handler(async ({ data }) => {
-    const idx = submissions.findIndex((s) => s.id === data.id);
-    if (idx !== -1) submissions.splice(idx, 1);
+    const db = await getDB();
+    await db.prepare("DELETE FROM contacts WHERE id = ?").bind(data.id).run();
     return { success: true };
   });
