@@ -2,25 +2,21 @@ import { createServerFn } from "@tanstack/react-start";
 import { setResponseHeaders } from "@tanstack/react-start/server";
 /**
  * Access the Cloudflare D1 binding.
- * `cloudflare:workers` is a built-in Workers module — only available
- * in the real Cloudflare Workers runtime, NOT in local dev.
+ * The Nitro cloudflare-module preset exposes worker env on globalThis.__env__.
  */
-async function getDB(): Promise<any> {
-  try {
-    const modName = "cloudflare:workers";
-    const mod = (await (0, eval)(`import(${JSON.stringify(modName)})`)) as {
-      env: { DB: any };
-    };
-    if (!mod?.env?.DB) {
-      throw new Error("D1 binding 'DB' not found. Check wrangler.jsonc d1_databases config.");
-    }
-    return mod.env.DB;
-  } catch (err: any) {
-    console.error("[contact.functions] Failed to get D1 binding:", err?.message);
+function getDB(): any {
+  const env = (globalThis as any).__env__;
+  if (!env) {
     throw new Error(
-      "Datenbank nicht verfügbar. Diese Funktion erfordert Cloudflare Workers mit D1-Binding."
+      "Workers env unavailable. Diese Funktion erfordert Cloudflare Workers Runtime."
     );
   }
+  if (!env.DB) {
+    throw new Error(
+      "D1 Binding 'DB' nicht gefunden. Bitte in Cloudflare Pages Settings → Functions → D1 Bindings einen Eintrag mit Variable Name 'DB' anlegen."
+    );
+  }
+  return env.DB;
 }
 
 interface ContactRow {
