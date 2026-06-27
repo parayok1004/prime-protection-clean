@@ -7,13 +7,14 @@ import { setResponseHeaders } from "@tanstack/react-start/server";
  */
 async function getDB(): Promise<any> {
   try {
-    const { env } = (await import("cloudflare:workers" as any)) as {
+    const modName = "cloudflare:workers";
+    const mod = (await (0, eval)(`import(${JSON.stringify(modName)})`)) as {
       env: { DB: any };
     };
-    if (!env?.DB) {
+    if (!mod?.env?.DB) {
       throw new Error("D1 binding 'DB' not found. Check wrangler.jsonc d1_databases config.");
     }
-    return env.DB;
+    return mod.env.DB;
   } catch (err: any) {
     console.error("[contact.functions] Failed to get D1 binding:", err?.message);
     throw new Error(
