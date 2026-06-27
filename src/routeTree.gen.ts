@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UeberMichRouteImport } from './routes/ueber-mich'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as EmailsRouteImport } from './routes/emails'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -30,6 +31,11 @@ const KontaktRoute = KontaktRouteImport.update({
   path: '/kontakt',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ImpressumRoute = ImpressumRouteImport.update({
+  id: '/impressum',
+  path: '/impressum',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmailsRoute = EmailsRouteImport.update({
   id: '/emails',
   path: '/emails',
@@ -44,6 +50,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/emails': typeof EmailsRoute
+  '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/security': typeof SecurityRoute
   '/ueber-mich': typeof UeberMichRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/emails': typeof EmailsRoute
+  '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/security': typeof SecurityRoute
   '/ueber-mich': typeof UeberMichRoute
@@ -59,21 +67,36 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/emails': typeof EmailsRoute
+  '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/security': typeof SecurityRoute
   '/ueber-mich': typeof UeberMichRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/emails' | '/kontakt' | '/security' | '/ueber-mich'
+  fullPaths:
+    | '/'
+    | '/emails'
+    | '/impressum'
+    | '/kontakt'
+    | '/security'
+    | '/ueber-mich'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/emails' | '/kontakt' | '/security' | '/ueber-mich'
-  id: '__root__' | '/' | '/emails' | '/kontakt' | '/security' | '/ueber-mich'
+  to: '/' | '/emails' | '/impressum' | '/kontakt' | '/security' | '/ueber-mich'
+  id:
+    | '__root__'
+    | '/'
+    | '/emails'
+    | '/impressum'
+    | '/kontakt'
+    | '/security'
+    | '/ueber-mich'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EmailsRoute: typeof EmailsRoute
+  ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
   SecurityRoute: typeof SecurityRoute
   UeberMichRoute: typeof UeberMichRoute
@@ -102,6 +125,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/impressum': {
+      id: '/impressum'
+      path: '/impressum'
+      fullPath: '/impressum'
+      preLoaderRoute: typeof ImpressumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/emails': {
       id: '/emails'
       path: '/emails'
@@ -122,6 +152,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EmailsRoute: EmailsRoute,
+  ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
   SecurityRoute: SecurityRoute,
   UeberMichRoute: UeberMichRoute,
