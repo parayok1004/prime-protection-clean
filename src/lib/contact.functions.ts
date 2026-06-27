@@ -34,7 +34,7 @@ export const getContactSubmissions = createServerFn({ method: "GET" }).handler(
     setResponseHeaders(new Headers({ "Cache-Control": "no-store" }));
     console.log("[getContactSubmissions] Fetching contacts...");
     try {
-      const db = await getDB();
+      const db = getDB();
       const { results } = await db
         .prepare(
           "SELECT id, name, phone, email, subject, message, date FROM contacts ORDER BY date DESC"
@@ -73,7 +73,7 @@ export const addContactSubmission = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     console.log("[addContactSubmission] Saving contact from:", data.email);
     try {
-      const db = await getDB();
+      const db = getDB();
       const id = crypto.randomUUID();
       const date = new Date().toISOString();
 
@@ -100,7 +100,7 @@ export const deleteContactSubmission = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     console.log("[deleteContactSubmission] Deleting id:", data.id);
     try {
-      const db = await getDB();
+      const db = getDB();
       await db.prepare("DELETE FROM contacts WHERE id = ?").bind(data.id).run();
       console.log("[deleteContactSubmission] Deleted.");
       return { success: true };
