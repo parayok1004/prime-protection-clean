@@ -11,7 +11,7 @@ export function Footer() {
               Prime Protection Service
             </h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Professionelle Sicherheits- und Gebäudedienstleistungen aus Berlin.
+              Professioneller Sicherheitsdienst aus Berlin.
               Vertrauen, Qualität und Zuverlässigkeit.
             </p>
           </div>
