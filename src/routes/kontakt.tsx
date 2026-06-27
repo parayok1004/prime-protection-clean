@@ -7,7 +7,7 @@ export const Route = createFileRoute("/kontakt")({
   head: () => ({
     meta: [
       { title: "Kontakt — Prime Protection Service Berlin" },
-      { name: "description", content: "Kontaktieren Sie Prime Protection Service für Sicherheits- und Reinigungsdienstleistungen in Berlin." },
+      { name: "description", content: "Kontaktieren Sie Prime Protection Service für professionelle Sicherheitsdienstleistungen in Berlin." },
       { property: "og:title", content: "Kontakt — Prime Protection Service" },
       { property: "og:description", content: "Kontaktieren Sie uns für ein unverbindliches Angebot." },
     ],
