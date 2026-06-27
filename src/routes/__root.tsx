@@ -34,7 +34,7 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Prime Protection Service | Sicherheitsdienst Berlin" },
-      { name: "description", content: "Professioneller Sicherheitsdienst und Gebäudedienstleistungen aus Berlin. Objektschutz, Eventschutz und mehr." },
+      { name: "description", content: "Professioneller Sicherheitsdienst aus Berlin. Objektschutz, Eventschutz, Personenschutz und mehr." },
       { name: "author", content: "Prime Protection Service" },
       { property: "og:title", content: "Prime Protection Service | Sicherheitsdienst Berlin" },
       { property: "og:description", content: "Professioneller Sicherheitsdienst aus Berlin" },

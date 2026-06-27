@@ -11,7 +11,7 @@ export function Footer() {
               Prime Protection Service
             </h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Professionelle Sicherheits- und Gebäudedienstleistungen aus Berlin.
+              Professioneller Sicherheitsdienst aus Berlin.
               Vertrauen, Qualität und Zuverlässigkeit.
             </p>
           </div>
@@ -21,9 +21,10 @@ export function Footer() {
             <div className="flex flex-col gap-2">
               <Link to="/" className="text-muted-foreground text-sm hover:text-gold transition-colors">Startseite</Link>
               <Link to="/security" className="text-muted-foreground text-sm hover:text-gold transition-colors">Security</Link>
-              <Link to="/reinigung" className="text-muted-foreground text-sm hover:text-gold transition-colors">Reinigung</Link>
               <Link to="/ueber-mich" className="text-muted-foreground text-sm hover:text-gold transition-colors">Über mich</Link>
               <Link to="/kontakt" className="text-muted-foreground text-sm hover:text-gold transition-colors">Kontakt</Link>
+              <Link to="/impressum" className="text-muted-foreground text-sm hover:text-gold transition-colors">Impressum</Link>
+              <Link to="/datenschutz" className="text-muted-foreground text-sm hover:text-gold transition-colors">Datenschutz</Link>
             </div>
           </div>
 

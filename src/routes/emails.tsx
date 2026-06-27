@@ -32,8 +32,6 @@ export const Route = createFileRoute("/emails")({
 
 const subjectLabels: Record<string, string> = {
   security: "Sicherheitsdienst",
-  reinigung: "Gebäudereinigung",
-  beides: "Beides",
   sonstiges: "Sonstiges",
 };
 

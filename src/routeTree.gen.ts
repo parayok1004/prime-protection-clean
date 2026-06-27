@@ -11,9 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UeberMichRouteImport } from './routes/ueber-mich'
 import { Route as SecurityRouteImport } from './routes/security'
-import { Route as ReinigungRouteImport } from './routes/reinigung'
 import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as EmailsRouteImport } from './routes/emails'
+import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as IndexRouteImport } from './routes/index'
 
 const UeberMichRoute = UeberMichRouteImport.update({
@@ -26,19 +27,24 @@ const SecurityRoute = SecurityRouteImport.update({
   path: '/security',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ReinigungRoute = ReinigungRouteImport.update({
-  id: '/reinigung',
-  path: '/reinigung',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const KontaktRoute = KontaktRouteImport.update({
   id: '/kontakt',
   path: '/kontakt',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ImpressumRoute = ImpressumRouteImport.update({
+  id: '/impressum',
+  path: '/impressum',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmailsRoute = EmailsRouteImport.update({
   id: '/emails',
   path: '/emails',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DatenschutzRoute = DatenschutzRouteImport.update({
+  id: '/datenschutz',
+  path: '/datenschutz',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -49,26 +55,29 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/datenschutz': typeof DatenschutzRoute
   '/emails': typeof EmailsRoute
+  '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
-  '/reinigung': typeof ReinigungRoute
   '/security': typeof SecurityRoute
   '/ueber-mich': typeof UeberMichRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/datenschutz': typeof DatenschutzRoute
   '/emails': typeof EmailsRoute
+  '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
-  '/reinigung': typeof ReinigungRoute
   '/security': typeof SecurityRoute
   '/ueber-mich': typeof UeberMichRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/datenschutz': typeof DatenschutzRoute
   '/emails': typeof EmailsRoute
+  '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
-  '/reinigung': typeof ReinigungRoute
   '/security': typeof SecurityRoute
   '/ueber-mich': typeof UeberMichRoute
 }
@@ -76,28 +85,38 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/datenschutz'
     | '/emails'
+    | '/impressum'
     | '/kontakt'
-    | '/reinigung'
     | '/security'
     | '/ueber-mich'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/emails' | '/kontakt' | '/reinigung' | '/security' | '/ueber-mich'
+  to:
+    | '/'
+    | '/datenschutz'
+    | '/emails'
+    | '/impressum'
+    | '/kontakt'
+    | '/security'
+    | '/ueber-mich'
   id:
     | '__root__'
     | '/'
+    | '/datenschutz'
     | '/emails'
+    | '/impressum'
     | '/kontakt'
-    | '/reinigung'
     | '/security'
     | '/ueber-mich'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DatenschutzRoute: typeof DatenschutzRoute
   EmailsRoute: typeof EmailsRoute
+  ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
-  ReinigungRoute: typeof ReinigungRoute
   SecurityRoute: typeof SecurityRoute
   UeberMichRoute: typeof UeberMichRoute
 }
@@ -118,13 +137,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/reinigung': {
-      id: '/reinigung'
-      path: '/reinigung'
-      fullPath: '/reinigung'
-      preLoaderRoute: typeof ReinigungRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/kontakt': {
       id: '/kontakt'
       path: '/kontakt'
@@ -132,11 +144,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/impressum': {
+      id: '/impressum'
+      path: '/impressum'
+      fullPath: '/impressum'
+      preLoaderRoute: typeof ImpressumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/emails': {
       id: '/emails'
       path: '/emails'
       fullPath: '/emails'
       preLoaderRoute: typeof EmailsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/datenschutz': {
+      id: '/datenschutz'
+      path: '/datenschutz'
+      fullPath: '/datenschutz'
+      preLoaderRoute: typeof DatenschutzRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -151,21 +177,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DatenschutzRoute: DatenschutzRoute,
   EmailsRoute: EmailsRoute,
+  ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
-  ReinigungRoute: ReinigungRoute,
   SecurityRoute: SecurityRoute,
   UeberMichRoute: UeberMichRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
