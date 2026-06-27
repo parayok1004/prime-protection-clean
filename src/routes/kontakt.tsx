@@ -116,8 +116,6 @@ function KontaktPage() {
                     <select name="subject" className="w-full bg-card border border-border rounded-md px-4 py-3 text-foreground focus:outline-none focus:ring-1 focus:ring-ring">
                       <option value="">Bitte wählen...</option>
                       <option value="security">Sicherheitsdienst</option>
-                      <option value="reinigung">Gebäudereinigung</option>
-                      <option value="beides">Beides</option>
                       <option value="sonstiges">Sonstiges</option>
                     </select>
                   </div>
