@@ -6,7 +6,6 @@ import logo from "@/assets/logo.png";
 const navItems = [
   { to: "/", label: "Startseite" },
   { to: "/security", label: "Security" },
-  { to: "/reinigung", label: "Reinigung" },
   { to: "/ueber-mich", label: "Über mich" },
   { to: "/kontakt", label: "Kontakt" },
 ] as const;
